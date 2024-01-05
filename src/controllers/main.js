@@ -41,10 +41,16 @@ const mainController = {
       .catch((error) => console.log(error));
   },
   deleteBook: (req, res) => {
-    db.Book.destroy({
+    const bookId = req.params.id;
+    db.BooksAuthors.destroy({
       where:{
-        id:req.params.id
+        BookId:bookId
       }
+    });
+    db.Book.destroy({
+      where: {
+        id: bookId,
+      },
     });
     res.redirect('/');
   },
